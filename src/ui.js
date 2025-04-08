@@ -10,7 +10,7 @@ console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
 
 (function renderUI() {
   console.log("Rendering UI");
-  const PROXY_URL = "https://kfm-player-proxy.onrender.com/proxy"; // Replace with your proxy URL
+  const PROXY_URL = "https://kfm-player-proxy.onrender.com"; // Replace with your proxy URL
   const KENKU_API = localStorage.getItem("kenkuApiUrl") || prompt("Enter your Kenku FM API URL", "http://127.0.0.1:3333/v1");
   localStorage.setItem("kenkuApiUrl", KENKU_API);
   let playbackState = { playing: false, muted: false, volume: 1, shuffle: false, repeat: "off", track: null };
