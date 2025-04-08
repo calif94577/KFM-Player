@@ -1,0 +1,13 @@
+{
+  "name": "Kenku FM Player",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "author": "calif94577",
+  "action": {
+    "title": "KFM Player",
+    "icon": "/speaker.svg",
+    "popover": "/ui.html?v=3",
+    "height": 400,
+    "width": 400
+    }
+  }

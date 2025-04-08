@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kenku FM Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+    .control-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .buttons {
+      display: flex;
+      gap: 5px;
+    }
+    button {
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    select {
+      width: 100%;
+      padding: 5px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="control-bar">
+    <select id="playlist-select">
+      <option value="">Select a Playlist</option>
+    </select>
+    <div class="buttons">
+      <button onclick="play()">Play</button>
+      <button onclick="pause()">Pause</button>
+      <button onclick="stop()">Stop</button>
+      <button onclick="next()">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const KENKU_API = "http://localhost:3333/remote"; // Default Kenku FM remote URL
+
+    // Fetch playlists on load
+    fetch(`${KENKU_API}/playlist`)
+      .then(response => response.json())
+      .then(data => {
+        const select = document.getElementById("playlist-select");
+        data.forEach(playlist => {
+          const option = document.createElement("option");
+          option.value = playlist.id;
+          option.text = playlist.name;
+          select.appendChild(option);
+        });
+      })
+      .catch(error => console.error("Error fetching playlists:", error));
+
+    // Control functions
+    function sendCommand(endpoint, body = {}) {
+      fetch(`${KENKU_API}${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      }).catch(error => console.error("Error:", error));
+    }
+
+    function play() {
+      const playlistId = document.getElementById("playlist-select").value;
+      if (playlistId) {
+        sendCommand("/playlist/play", { playlist: { id: playlistId } });
+      } else {
+        sendCommand("/playback/play");
+      }
+    }
+
+    function pause() { sendCommand("/playback/pause"); }
+    function stop() { sendCommand("/playback/stop"); }
+    function next() { sendCommand("/playback/next"); }
+  </script>
+</body>
+</html>
