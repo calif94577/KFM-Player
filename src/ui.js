@@ -3,16 +3,16 @@
  * Version: v11-white-transparent-bg-final
  * Author: calif94577 on Discord
  * Description: A minimal audio control interface for Kenku FM within Owlbear Rodeo.
- * Dependencies: Requires Kenku FM running locally (default: http://127.0.0.1:3333/v1).
- * Usage: Load via manifest URL. Enter your Kenku FM API URL when prompted.
+ * Dependencies: Requires Kenku FM running at the specified API endpoint (default: http://localhost:3333/v1).
+ * Usage: Load in Owlbear Rodeo via a manifest URL (see hosting steps below).
+ * Note: Adjust KENKU_API if your Kenku FM instance runs on a different host/port.
  */
-console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
+
+console.log("ui.js loaded - v11-white-transparent-bg-fix4");
 
 (function renderUI() {
   console.log("Rendering UI");
-  const PROXY_URL = "https://kfm-player-proxy.onrender.com/proxy"; // Replace with your proxy URL
-  const KENKU_API = localStorage.getItem("kenkuApiUrl") || prompt("Enter your Kenku FM API URL", "http://127.0.0.1:3333/v1");
-  localStorage.setItem("kenkuApiUrl", KENKU_API);
+  const KENKU_API = "http://localhost:3000/v1";
   let playbackState = { playing: false, muted: false, volume: 1, shuffle: false, repeat: "off", track: null };
   let allPlaylists = [];
 
@@ -121,9 +121,7 @@ console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
   document.head.appendChild(style);
 
   function fetchPlaylists() {
-    fetch(`${PROXY_URL}/playlist`, {
-      headers: { "X-Kenku-API-URL": KENKU_API }
-    })
+    fetch(`${KENKU_API}/playlist`, { method: "GET" })
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
@@ -149,9 +147,7 @@ console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
   }
 
   function updatePlaybackState() {
-    return fetch(`${PROXY_URL}/playlist/playback`, {
-      headers: { "X-Kenku-API-URL": KENKU_API }
-    })
+    return fetch(`${KENKU_API}/playlist/playback`, { method: "GET" })
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         return response.json();
@@ -210,7 +206,7 @@ console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
           li.dataset.trackId = track.id;
           li.addEventListener("click", () => {
             sendCommand("/playlist/play", "PUT", { id: track.id })
-              .then(() => setTimeout(updatePlaybackState, 25));
+              .then(() => setTimeout(updatePlaybackState, 25)); // Delay to catch state change
           });
           trackList.appendChild(li);
         }
@@ -221,14 +217,11 @@ console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
   function sendCommand(endpoint, method = "POST", body = null) {
     const options = { 
       method,
-      headers: { 
-        "Content-Type": "application/json",
-        "X-Kenku-API-URL": KENKU_API
-      }
+      headers: body ? { "Content-Type": "application/json" } : {}
     };
     if (body) options.body = JSON.stringify(body);
-    console.log("Sending request:", { url: `${PROXY_URL}${endpoint}`, ...options });
-    return fetch(`${PROXY_URL}${endpoint}`, options)
+    console.log("Sending request:", { url: `${KENKU_API}${endpoint}`, ...options });
+    return fetch(`${KENKU_API}${endpoint}`, options)
       .then((response) => {
         if (!response.ok) {
           return response.json().then((errData) => {
