@@ -1,6 +1,6 @@
 /*
  * Kenku FM Player Owlbear Rodeo Extension
- * Version: v11-white-transparent-bg-final-proxy
+ * Version: v11-white-transparent-bg-final
  * Author: calif94577 on Discord
  * Description: A minimal audio control interface for Kenku FM within Owlbear Rodeo.
  * Dependencies: Requires Kenku FM running locally (default: http://127.0.0.1:3333/v1).
@@ -10,7 +10,7 @@ console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
 
 (function renderUI() {
   console.log("Rendering UI");
-  const PROXY_URL = "https://kfm-player-proxy.onrender.com"; // Base proxy URL
+  const PROXY_URL = "https://kfm-player-proxy.onrender.com"; // Replace with your proxy URL
   const KENKU_API = localStorage.getItem("kenkuApiUrl") || prompt("Enter your Kenku FM API URL", "http://127.0.0.1:3333/v1");
   localStorage.setItem("kenkuApiUrl", KENKU_API);
   let playbackState = { playing: false, muted: false, volume: 1, shuffle: false, repeat: "off", track: null };
@@ -121,7 +121,7 @@ console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
   document.head.appendChild(style);
 
   function fetchPlaylists() {
-    fetch(`${PROXY_URL}/proxy/playlist`, { // Added /proxy/
+    fetch(`${PROXY_URL}/playlist`, {
       headers: { "X-Kenku-API-URL": KENKU_API }
     })
       .then((response) => {
@@ -149,7 +149,7 @@ console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
   }
 
   function updatePlaybackState() {
-    return fetch(`${PROXY_URL}/proxy/playlist/playback`, { // Added /proxy/
+    return fetch(`${PROXY_URL}/playlist/playback`, {
       headers: { "X-Kenku-API-URL": KENKU_API }
     })
       .then((response) => {
@@ -227,8 +227,8 @@ console.log("ui.js loaded - v11-white-transparent-bg-final-proxy");
       }
     };
     if (body) options.body = JSON.stringify(body);
-    console.log("Sending request:", { url: `${PROXY_URL}/proxy${endpoint}`, ...options }); // Added /proxy/
-    return fetch(`${PROXY_URL}/proxy${endpoint}`, options)
+    console.log("Sending request:", { url: `${PROXY_URL}${endpoint}`, ...options });
+    return fetch(`${PROXY_URL}${endpoint}`, options)
       .then((response) => {
         if (!response.ok) {
           return response.json().then((errData) => {
