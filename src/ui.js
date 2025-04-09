@@ -12,7 +12,7 @@ console.log("ui.js loaded - v11-white-transparent-bg-fix4");
 
 (function renderUI() {
   console.log("Rendering UI");
-  const KENKU_API = "http://localhost:3000/v1";
+  const KENKU_API = "http://localhost:3333/v1";
   let playbackState = { playing: false, muted: false, volume: 1, shuffle: false, repeat: "off", track: null };
   let allPlaylists = [];
 
