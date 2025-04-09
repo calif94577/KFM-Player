@@ -5,7 +5,6 @@
   "author": "calif94577",
   "icon": "/icon.svg",
   "homepage_url": "https://github.com/calif94577/KFM-Player",
-  "description": "An extension to control Kenku FM from within Owlbear Rodeo. Note: Requires a modified version of Kenku FM available at https://github.com/calif94577/kenku-fm",
   "action": {
     "title": "KFM Player",
     "icon": "/monocolor-icon.svg",
