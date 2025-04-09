@@ -1,11 +1,13 @@
 {
   "name": "Kenku FM Player",
   "version": "1.0.0",
-  "manifest_version": 2,
+  "manifest_version": 1,
   "author": "calif94577",
+  "icon": "/icon.svg",
+  "homepage_url": "https://github.com/calif94577/KFM-Player",
   "action": {
     "title": "KFM Player",
-    "icon": "/speaker.svg",
+    "icon": "/icon.svg",
     "popover": "/ui.html?v=3",
     "height": 400,
     "width": 400
