@@ -25,7 +25,7 @@ To use this extension, you’ll need:
 ## Installation
 1. **Run Kenku FM**:
    - Download my modified Kenku FM from [https://github.com/calif94577/kenku-fm](https://github.com/calif94577/kenku-fm), or download source and build your own. (only Apple Silicone build currently available.)
-   - Add your playlists (these will port over if you already had the unmodified version of Kenku.FM set up with tracks), and start the server (default: `http://127.0.0.1:3333/v1`).
+   - Add your playlists (these will port over if you already had the unmodified version of Kenku.FM set up with tracks), and start the server (default: Address: 127.0.0.1 - Port: 3333 | `http://127.0.0.1:3333/v1`).
 2. **Add the Extension to Owlbear Rodeo**:
    - Open Owlbear Rodeo in your browser.
    - Go to **Extensions** → **Add Custom Extension** via the top right + button.
