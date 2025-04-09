@@ -7,7 +7,7 @@
   "homepage_url": "https://github.com/calif94577/KFM-Player",
   "action": {
     "title": "KFM Player",
-    "icon": "/icon.svg",
+    "icon": "/monocolor-icon.svg",
     "popover": "/ui.html?v=3",
     "height": 400,
     "width": 400
